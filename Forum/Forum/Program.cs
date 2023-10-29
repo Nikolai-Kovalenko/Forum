@@ -1,7 +1,20 @@
+using Forum.Data;
+using Forum.Repository;
+using Forum.Repository.IRepository;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+builder.Services.AddDbContext<AppDbContext>(options => {
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultSQLConnection"));
+});
+
+builder.Services.AddScoped<ISectionRepository, SectionRepository>();
+
 
 var app = builder.Build();
 
