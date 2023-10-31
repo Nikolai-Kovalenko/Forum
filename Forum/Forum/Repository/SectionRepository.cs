@@ -20,7 +20,7 @@ namespace Forum.Repository
             {
                 objFromDb.Name = obj.Name;
                 objFromDb.Description = obj.Description;
-
+                objFromDb.LastChangeTime = obj.LastChangeTime;
             }
         }
     }

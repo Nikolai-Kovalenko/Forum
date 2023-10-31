@@ -12,5 +12,6 @@ namespace Forum.Data
         }
 
         public DbSet<Section> Sections { get; set; }
+        public DbSet<SectionChanges> SectionsChanges { get; set; }
     }
 }

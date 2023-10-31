@@ -14,6 +14,7 @@ builder.Services.AddDbContext<AppDbContext>(options => {
 });
 
 builder.Services.AddScoped<ISectionRepository, SectionRepository>();
+builder.Services.AddScoped<ISectionChangesRepository, SectionChangesRepository>();
 
 
 var app = builder.Build();
