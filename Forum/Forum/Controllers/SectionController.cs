@@ -1,4 +1,5 @@
 ﻿using Forum.Data;
+using Forum.Models;
 using Forum.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,6 +25,22 @@ namespace Forum.Controllers
         public IActionResult Create()
         {
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Section obj)
+        {
+            if(ModelState.IsValid)
+            {
+                obj.CreateTime = DateTime.Now;
+
+                _sectionRepo.Add(obj);
+                _sectionRepo.Save();
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(obj);
         }
     }
 }
