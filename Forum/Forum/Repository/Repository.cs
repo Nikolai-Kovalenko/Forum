@@ -47,7 +47,8 @@ namespace Forum.Repository
             return query.FirstOrDefault();
         }
 
-        public IEnumerable<T> GetAll(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includePropreties = null, bool isTracing = true)
+        public IEnumerable<T> GetAll(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, 
+            IOrderedQueryable<T>> orderBy = null, string includePropreties = null, bool isTracing = true)
         {
             IQueryable<T> query = dbSet;
             if (filter != null)
@@ -70,11 +71,6 @@ namespace Forum.Repository
                 query = query.AsNoTracking();
             }
             return query.ToList();
-        }
-
-        public void Remove(T entity)
-        {
-            dbSet.Remove(entity);
         }
 
         public void Save()

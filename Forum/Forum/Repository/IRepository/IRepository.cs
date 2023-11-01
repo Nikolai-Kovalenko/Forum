@@ -19,7 +19,6 @@ namespace Forum.Repository.IRepository
             );
 
         void Add(T entity);
-        void Remove(T entity);
         void Save();
     }
 }

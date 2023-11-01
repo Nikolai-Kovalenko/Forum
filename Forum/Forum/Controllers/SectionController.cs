@@ -21,7 +21,7 @@ namespace Forum.Controllers
 
         public IActionResult Index()
         {
-            var objList = _sectionRepo.GetAll();
+            var objList = _sectionRepo.GetAll(u => u.DeleteTime == null);
             return View(objList);
         }
 
@@ -99,13 +99,42 @@ namespace Forum.Controllers
                 }
                 _sectionChangasRepo.Save();
 
-
                 _sectionRepo.Update(obj);
                 _sectionRepo.Save();
                 return RedirectToAction(nameof(Index));
             }
 
             return View(obj);
+        }
+
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var obj = _sectionRepo.Find(id.GetValueOrDefault());
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            return View(obj);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeletePost(int? id)
+        {
+            var obj = _sectionRepo.Find(id.GetValueOrDefault());
+            if(obj == null)
+            {
+                return NotFound();
+            }
+
+            _sectionRepo.Delete(obj);
+            _sectionRepo.Save();
+            return RedirectToAction(nameof(Index));
         }
     }
 }

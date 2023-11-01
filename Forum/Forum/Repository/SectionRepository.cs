@@ -12,6 +12,12 @@ namespace Forum.Repository
         {
             _db = db;
         }
+
+        public void Delete(Section obj)
+        {
+            obj.DeleteTime = DateTime.Now;
+        }
+
         public void Update(Section obj)
         {
             /*var objFromDb = _db.Category.FirstOrDefault(u => u.Id == obj.Id);*/
