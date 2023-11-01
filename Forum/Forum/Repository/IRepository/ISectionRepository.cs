@@ -7,6 +7,6 @@ namespace Forum.Repository.IRepository
     {
         void Update(Section obj);
 
-        void Delete(Section obj);
+        void Delete(Section obj, DateTime dateTime);
     }
 }

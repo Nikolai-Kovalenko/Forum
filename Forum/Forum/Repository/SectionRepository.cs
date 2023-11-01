@@ -13,9 +13,9 @@ namespace Forum.Repository
             _db = db;
         }
 
-        public void Delete(Section obj)
+        public void Delete(Section obj, DateTime dateTime)
         {
-            obj.DeleteTime = DateTime.Now;
+            obj.DeleteTime = dateTime;
         }
 
         public void Update(Section obj)

@@ -68,19 +68,20 @@ namespace Forum.Controllers
             if (ModelState.IsValid)
             {
                 Section oldSection = _sectionRepo.Find(obj.Id);
+                DateTime curentTime = DateTime.Now;
                 if(oldSection.Name != obj.Name)
                 {
                     SectionChanges sectionChanges = new()
                     {
                         SectionId = obj.Id,
-                        Field = WC.NameField,
+                        Field = WC.Name,
                         FromValue = oldSection.Name,
                         ToValue = obj.Name,
-                        ChangeTime = DateTime.Now
+                        ChangeTime = curentTime
                     };
 
                     _sectionChangasRepo.Add(sectionChanges);
-                    obj.LastChangeTime = DateTime.Now;
+                    obj.LastChangeTime = curentTime;
                 }
 
                 if (oldSection.Description != obj.Description)
@@ -88,14 +89,14 @@ namespace Forum.Controllers
                     SectionChanges sectionChanges = new()
                     {
                         SectionId = obj.Id,
-                        Field = WC.NameDescription,
+                        Field = WC.Description,
                         FromValue = oldSection.Description,
                         ToValue = obj.Description,
-                        ChangeTime = DateTime.Now
+                        ChangeTime = curentTime
                     };
 
                     _sectionChangasRepo.Add(sectionChanges);
-                    obj.LastChangeTime = DateTime.Now;
+                    obj.LastChangeTime = curentTime;
                 }
                 _sectionChangasRepo.Save();
 
@@ -127,12 +128,24 @@ namespace Forum.Controllers
         public IActionResult DeletePost(int? id)
         {
             var obj = _sectionRepo.Find(id.GetValueOrDefault());
+            DateTime curentTime = DateTime.Now;
             if(obj == null)
             {
                 return NotFound();
             }
 
-            _sectionRepo.Delete(obj);
+            SectionChanges sectionChanges = new()
+            {
+                SectionId = obj.Id,
+                Field = WC.DeleteTime,
+                FromValue = null,
+                ToValue = curentTime.ToString(),
+                ChangeTime = curentTime
+            };
+
+            _sectionChangasRepo.Add(sectionChanges);
+
+            _sectionRepo.Delete(obj, curentTime);
             _sectionRepo.Save();
             return RedirectToAction(nameof(Index));
         }
