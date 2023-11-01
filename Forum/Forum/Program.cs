@@ -15,6 +15,8 @@ builder.Services.AddDbContext<AppDbContext>(options => {
 
 builder.Services.AddScoped<ISectionRepository, SectionRepository>();
 builder.Services.AddScoped<ISectionChangesRepository, SectionChangesRepository>();
+builder.Services.AddScoped<ITopicRepository, TopicRepository>();
+builder.Services.AddScoped<ITopicChangesRepository, TopicChangesRepository>();
 
 
 var app = builder.Build();
