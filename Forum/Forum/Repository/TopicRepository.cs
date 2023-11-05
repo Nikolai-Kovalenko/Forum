@@ -1,6 +1,7 @@
 ﻿using Forum.Data;
 using Forum.Models;
 using Forum.Repository.IRepository;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Forum.Repository
 {
@@ -17,6 +18,21 @@ namespace Forum.Repository
         {
             obj.DeleteTime = dateTime;
         }
+
+        public IEnumerable<SelectListItem> GetAllDropdownList(string obj)
+        {
+            if(obj == WC.SectionType)
+            {
+                return _db.Sections.Where(i => i.DeleteTime == null).Select(i => new SelectListItem
+                {
+                    Text = i.Name,
+                    Value = i.Id.ToString()
+                });
+            }
+
+            return null;
+        }
+            
 
         public void Update(Topic obj)
         {

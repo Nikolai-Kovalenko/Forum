@@ -6,5 +6,7 @@
         public const string Description = "Description";
         public const string DeleteTime = "DeleteTime";
         public const string SectionId = "SectionId";
+
+        public const string SectionType = "Section";
     }
 }

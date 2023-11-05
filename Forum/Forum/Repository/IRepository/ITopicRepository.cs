@@ -1,4 +1,5 @@
 ﻿using Forum.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq.Expressions;
 
 namespace Forum.Repository.IRepository
@@ -8,5 +9,7 @@ namespace Forum.Repository.IRepository
         void Update(Topic obj);
 
         void Delete(Topic obj, DateTime dateTime);
+
+        IEnumerable<SelectListItem> GetAllDropdownList(string obj);
     }
 }

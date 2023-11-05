@@ -1,5 +1,6 @@
 ﻿using Forum.Data;
 using Forum.Models;
+using Forum.Models.ViewModels;
 using Forum.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,8 +28,16 @@ namespace Forum.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            TopicVM topicVM = new()
+            {
+                Topic = new Topic(),
+                SetionSelectList = _topicRepo.GetAllDropdownList(WC.SectionType)
+            };
+
+            return View(topicVM);
         }
+
+           
 
         [HttpPost]
         [ValidateAntiForgeryToken]
