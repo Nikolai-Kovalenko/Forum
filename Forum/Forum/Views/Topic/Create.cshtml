@@ -23,10 +23,11 @@
                         <label asp-for="@Model.Topic.SectionId"></label>
                     </div>
                     <div class="col-8">
-                        <select asp-for="@Model.Topic.SectionId" 
-                            asp-items="@Model.SetionSelectList" class="form-select">
+                        <select asp-for="@Model.Topic.SectionId"
+                                asp-items="@Model.SectionSelectList" class="form-select">
                             <option disabled selected>--Select Section--</option>
                         </select>
+                        <span asp-validation-for="@Model.Topic.SectionId" class="text-danger"></span>
                     </div>
                 </div>
 

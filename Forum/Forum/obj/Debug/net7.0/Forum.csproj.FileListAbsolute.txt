@@ -79,3 +79,5 @@ F:\Project\Forum\Forum\Forum\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Run
 F:\Project\Forum\Forum\Forum\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 F:\Project\Forum\Forum\Forum\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 F:\Project\Forum\Forum\Forum\obj\Debug\net7.0\Forum.csproj.CopyComplete
+F:\Project\Forum\Forum\Forum\bin\Debug\net7.0\AutoMapper.dll
+F:\Project\Forum\Forum\Forum\bin\Debug\net7.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

@@ -1,5 +1,6 @@
 ﻿using Forum.Data;
 using Forum.Models;
+using Forum.Models.Dto;
 using Forum.Models.ViewModels;
 using Forum.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,7 @@ namespace Forum.Controllers
 
         public IActionResult Index()
         {
-            var objList = _topicRepo.GetAll(u => u.DeleteTime == null);
+            var objList = _topicRepo.GetAll(u => u.DeleteTime == null, includePropreties: "Section");
             return View(objList);
         }
 
@@ -30,25 +31,23 @@ namespace Forum.Controllers
         {
             TopicVM topicVM = new()
             {
-                Topic = new Topic(),
-                SetionSelectList = _topicRepo.GetAllDropdownList(WC.SectionType)
+                Topic = new TopicCreateDTO(),
+                SectionSelectList = _topicRepo.GetAllDropdownList(WC.SectionType)
             };
 
             return View(topicVM);
         }
 
-           
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Topic obj)
+        public IActionResult Create(TopicCreateDTO obj)
         {
             if (ModelState.IsValid)
             {
-                obj.CreateTime = DateTime.Now;
+                /*obj.Topic.CreateTime = DateTime.Now;
 
-                _topicRepo.Add(obj);
-                _topicRepo.Save();
+                _topicRepo.Add(obj.Topic);
+                _topicRepo.Save();*/
                 return RedirectToAction(nameof(Index));
             }
 

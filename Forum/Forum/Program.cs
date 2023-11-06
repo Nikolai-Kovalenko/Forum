@@ -1,3 +1,4 @@
+using Forum;
 using Forum.Data;
 using Forum.Repository;
 using Forum.Repository.IRepository;
@@ -18,6 +19,7 @@ builder.Services.AddScoped<ISectionChangesRepository, SectionChangesRepository>(
 builder.Services.AddScoped<ITopicRepository, TopicRepository>();
 builder.Services.AddScoped<ITopicChangesRepository, TopicChangesRepository>();
 
+builder.Services.AddAutoMapper(typeof(MappingConfig));
 
 var app = builder.Build();
 
