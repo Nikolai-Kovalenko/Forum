@@ -1,4 +1,5 @@
-﻿using Forum.Data;
+﻿using AutoMapper;
+using Forum.Data;
 using Forum.Models;
 using Forum.Models.Dto;
 using Forum.Models.ViewModels;
@@ -12,13 +13,16 @@ namespace Forum.Controllers
         public readonly AppDbContext _db;
         public readonly ITopicRepository _topicRepo;
         public readonly ITopicChangesRepository _topicChangasRepo;
+        public IMapper _mapper { get; set; }
+
 
         public TopicController(AppDbContext db, ITopicRepository topicRepo,
-            ITopicChangesRepository topicChangasRepo)
+            ITopicChangesRepository topicChangasRepo, IMapper mapper)
         {
             _db = db;
             _topicRepo = topicRepo;
             _topicChangasRepo = topicChangasRepo;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
@@ -40,14 +44,15 @@ namespace Forum.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(TopicCreateDTO obj)
+        public IActionResult Create(TopicVM obj)
         {
             if (ModelState.IsValid)
             {
-                /*obj.Topic.CreateTime = DateTime.Now;
+                Topic topic = _mapper.Map<Topic>(obj.Topic);
+                topic.CreateTime = DateTime.Now;
 
-                _topicRepo.Add(obj.Topic);
-                _topicRepo.Save();*/
+                _topicRepo.Add(topic);
+                _topicRepo.Save();
                 return RedirectToAction(nameof(Index));
             }
 
