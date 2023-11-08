@@ -68,6 +68,7 @@ namespace Forum.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Create
                 if (obj.Topic.Id == 0)
                 {
                     Topic topic = _mapper.Map<Topic>(obj.Topic);
@@ -77,16 +78,65 @@ namespace Forum.Controllers
                     _topicRepo.Save();
                     return RedirectToAction(nameof(Index));
                 }
+                // Update
                 else
                 {
                     Topic objFromDb = _topicRepo.FirstOrDefault(u => u.Id == obj.Topic.Id, isTracking: false);
 
-
                     if (objFromDb != null)
                     {
-                        objFromDb = _mapper.Map<Topic>(obj.Topic);
-                        _topicRepo.Update(objFromDb);
-                        _topicRepo.Save();
+                        if (objFromDb.Description != obj.Topic.Description
+                            || objFromDb.SectionId != obj.Topic.SectionId
+                            || objFromDb.Name != obj.Topic.Name)
+                        {
+                            DateTime curentTime = DateTime.Now;
+
+                            if (objFromDb.Name != obj.Topic.Name)
+                            {
+                                TopicChanges topicChanges = new()
+                                {
+                                    TopicId = obj.Topic.Id,
+                                    Field = WC.Name,
+                                    FromValue = objFromDb.Name,
+                                    ToValue = obj.Topic.Name,
+                                    ChangeTime = curentTime
+                                };
+
+                                _topicChangasRepo.Add(topicChanges);
+                            }
+
+                            if (objFromDb.SectionId != obj.Topic.SectionId)
+                            {
+                                TopicChanges topicChanges = new()
+                                {
+                                    TopicId = obj.Topic.Id,
+                                    Field = WC.SectionId,
+                                    FromValue = objFromDb.SectionId.ToString(),
+                                    ToValue = obj.Topic.SectionId.ToString(),
+                                    ChangeTime = curentTime
+                                };
+
+                                _topicChangasRepo.Add(topicChanges);
+                            }
+
+                            if (objFromDb.Description != obj.Topic.Description)
+                            {
+                                TopicChanges topicChanges = new()
+                                {
+                                    TopicId = obj.Topic.Id,
+                                    Field = WC.Description,
+                                    FromValue = objFromDb.Description,
+                                    ToValue = obj.Topic.Description,
+                                    ChangeTime = curentTime
+                                };
+
+                                _topicChangasRepo.Add(topicChanges);
+                            }
+                            _topicChangasRepo.Save();
+
+                            _topicRepo.Update(obj.Topic, curentTime);
+                            _topicRepo.Save();
+                        }
 
                         return RedirectToAction(nameof(Index));
                     }

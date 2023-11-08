@@ -10,7 +10,6 @@ namespace Forum
         public MappingConfig()
         {
             CreateMap<Topic, TopicUpsertDTO>().ReverseMap();
-            CreateMap<Topic, TopicUpdateDTO>().ReverseMap();
             CreateMap<Topic, TopicUpsertDTO>().ReverseMap();
         }
     }

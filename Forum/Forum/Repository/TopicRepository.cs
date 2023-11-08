@@ -1,5 +1,6 @@
 ﻿using Forum.Data;
 using Forum.Models;
+using Forum.Models.Dto;
 using Forum.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -34,7 +35,7 @@ namespace Forum.Repository
         }
             
 
-        public void Update(Topic obj)
+        public void Update(TopicUpsertDTO obj, DateTime dateTime)
         {
             /*var objFromDb = _db.Category.FirstOrDefault(u => u.Id == obj.Id);*/
             var objFromDb = base.FirstOrDefault(u => u.Id == obj.Id);
@@ -42,7 +43,7 @@ namespace Forum.Repository
             {
                 objFromDb.Name = obj.Name;
                 objFromDb.Description = obj.Description;
-                objFromDb.LastChangeTime = obj.LastChangeTime;
+                objFromDb.LastChangeTime = dateTime;
                 objFromDb.SectionId = obj.SectionId;
             }
         }
