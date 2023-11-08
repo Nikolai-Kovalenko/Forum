@@ -6,7 +6,7 @@
             <h1 class="text-primary">Topic List</h1>
         </div>
         <div class="col text-end pt-1">
-            <a asp-controller="Topic" asp-action="Create" class="btn btn-success"><i class="bi bi-plus-square"></i> Create new Topic</a>
+            <a asp-controller="Topic" asp-action="Upsert" class="btn btn-success"><i class="bi bi-plus-square"></i> Create new Topic</a>
         </div>
     </div>
 
@@ -46,7 +46,7 @@
                         <td wight="20%">@obj.LastChangeTime</td>
                         <td class="text-center">
                             <div class="w-55 btn-group" role="group">
-                                <a asp-controller="Topic" asp-route-Id="@obj.Id" asp-action="Update" class="btn btn-primary mx-2">
+                                <a asp-controller="Topic" asp-route-Id="@obj.Id" asp-action="Upsert" class="btn btn-primary mx-2">
                                     <i class="bi bi-pencil-square"></i>
                                 </a>
                                 <a asp-controller="Topic" asp-route-Id="@obj.Id" asp-action="Delete" class="btn btn-danger mx-2">

@@ -31,35 +31,72 @@ namespace Forum.Controllers
             return View(objList);
         }
 
-        public IActionResult Create()
+        public IActionResult Upsert(int? id)
         {
-            TopicVM topicVM = new()
+            if(id == null) // Create Topic
             {
-                Topic = new TopicCreateDTO(),
-                SectionSelectList = _topicRepo.GetAllDropdownList(WC.SectionType)
-            };
+                TopicUpsertVM topicUpsertVM = new()
+                {
+                    Topic = new TopicUpsertDTO(),
+                    SectionSelectList = _topicRepo.GetAllDropdownList(WC.SectionType)
+                };
 
-            return View(topicVM);
+                return View(topicUpsertVM);
+            }
+
+            // Update Topic
+
+            Topic objFromDb = _topicRepo.Find(id.GetValueOrDefault());
+
+            if(objFromDb != null) 
+            {
+                TopicUpsertVM topicUpsertVM = new()
+                {
+                    Topic = _mapper.Map<TopicUpsertDTO>(objFromDb),
+                    SectionSelectList = _topicRepo.GetAllDropdownList(WC.SectionType)
+                };
+
+                return View(topicUpsertVM);
+            }
+
+            return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(TopicVM obj)
+        public IActionResult Upsert(TopicUpsertVM obj)
         {
             if (ModelState.IsValid)
             {
-                Topic topic = _mapper.Map<Topic>(obj.Topic);
-                topic.CreateTime = DateTime.Now;
+                if (obj.Topic.Id == 0)
+                {
+                    Topic topic = _mapper.Map<Topic>(obj.Topic);
+                    topic.CreateTime = DateTime.Now;
 
-                _topicRepo.Add(topic);
-                _topicRepo.Save();
-                return RedirectToAction(nameof(Index));
+                    _topicRepo.Add(topic);
+                    _topicRepo.Save();
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    Topic objFromDb = _topicRepo.FirstOrDefault(u => u.Id == obj.Topic.Id, isTracking: false);
+
+
+                    if (objFromDb != null)
+                    {
+                        objFromDb = _mapper.Map<Topic>(obj.Topic);
+                        _topicRepo.Update(objFromDb);
+                        _topicRepo.Save();
+
+                        return RedirectToAction(nameof(Index));
+                    }
+                }
             }
 
             return View(obj);
         }
 
-        public IActionResult Update(int id)
+       /* public IActionResult Update(int id)
         {
             if (id == null || id == 0)
             {
@@ -71,12 +108,14 @@ namespace Forum.Controllers
                 return NotFound();
             }
 
-            return View(obj);
+            TopicUpdateDTO topicUpdateDTO = _mapper.Map<TopicUpdateDTO>(obj);
+
+            return View(topicUpdateDTO);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Update(Topic obj)
+        public IActionResult Update(TopicUpdateDTO obj)
         {
             if (ModelState.IsValid)
             {
@@ -177,6 +216,6 @@ namespace Forum.Controllers
             _topicRepo.Delete(obj, curentTime);
             _topicRepo.Save();
             return RedirectToAction(nameof(Index));
-        }
+        }*/
     }
 }

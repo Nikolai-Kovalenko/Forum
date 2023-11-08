@@ -1,10 +1,22 @@
-﻿@model Forum.Models.ViewModels.TopicVM
+﻿@model Forum.Models.ViewModels.TopicUpsertVM
 
-<form method="post" asp-action="Create">
+@{
+    string title = "Create Topic";
+}
+
+<form method="post" asp-action="Upsert">
     <div class="border p-3 bg-white">
         @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+        @{
+            if(Model.Topic.Id != 0)
+            {
+                title = "Update Topic";
+                <input asp-for="@Model.Topic.Id" hidden/>
+            }
+        }
+
         <div class="form-group row">
-            <h2 class="text-info pl-3">Add topic</h2>
+            <h2 class="text-info pl-3">@title</h2>
         </div>
         <div class="row">
             <div class="col-8">
@@ -44,7 +56,18 @@
                 <div class="form-group row py-2">
                     <div class="col-8 offset-4 row">
                         <div class="col">
-                            <input type="submit" class="btn btn-success w-100" value="Create" />
+                            @{
+                                if(Model.Topic.Id != 0)
+                                // Update
+                                {
+                                        <input type="submit" class="btn btn-success w-100" value="Update" />
+                                }
+                                else
+                                // Create
+                                {
+                                        <input type="submit" class="btn btn-success w-100" value="Create" />
+                                }
+                            }
                         </div>
                         <div class="col">
                             <a asp-action="Index" class="btn btn-info w-100"><i class="fas fa-sign-out-alt"></i>  &nbsp; Back</a>

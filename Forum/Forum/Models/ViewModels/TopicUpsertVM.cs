@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace Forum.Models.ViewModels
 {
-    public class TopicVM
+    public class TopicUpsertVM
     {
-        public TopicCreateDTO Topic { get; set; }
+        public TopicUpsertDTO Topic { get; set; }
         public IEnumerable<SelectListItem>? SectionSelectList { get; set; }
     }
 }
