@@ -146,115 +146,37 @@ namespace Forum.Controllers
             return View(obj);
         }
 
-       /* public IActionResult Update(int id)
-        {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-            var obj = _topicRepo.Find(id);
-            if (obj == null)
-            {
-                return NotFound();
-            }
-
-            TopicUpdateDTO topicUpdateDTO = _mapper.Map<TopicUpdateDTO>(obj);
-
-            return View(topicUpdateDTO);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Update(TopicUpdateDTO obj)
-        {
-            if (ModelState.IsValid)
-            {
-                var oldSection = _topicRepo.Find(obj.Id);
-                DateTime curentTime = DateTime.Now;
-                if (oldSection.Name != obj.Name)
-                {
-                    TopicChanges topicChanges = new()
-                    {
-                        TopicId = obj.Id,
-                        Field = WC.Name,
-                        FromValue = oldSection.Name,
-                        ToValue = obj.Name,
-                        ChangeTime = curentTime
-                    };
-
-                    _topicChangasRepo.Add(topicChanges);
-                    obj.LastChangeTime = curentTime;
-                }
-
-                if (oldSection.Description != obj.Description)
-                {
-                    TopicChanges topicChanges = new()
-                    {
-                        TopicId = obj.Id,
-                        Field = WC.Description,
-                        FromValue = oldSection.Description,
-                        ToValue = obj.Description,
-                        ChangeTime = curentTime
-                    };
-
-                    _topicChangasRepo.Add(topicChanges);
-                    obj.LastChangeTime = curentTime;
-                }
-
-                if (oldSection.SectionId != obj.SectionId)
-                {
-                    TopicChanges topicChanges = new()
-                    {
-                        TopicId = obj.Id,
-                        Field = WC.SectionId,
-                        FromValue = oldSection.SectionId.ToString(),
-                        ToValue = obj.SectionId.ToString(),
-                        ChangeTime = curentTime
-                    };
-
-                    _topicChangasRepo.Add(topicChanges);
-                    obj.LastChangeTime = curentTime;
-                }
-
-                _topicChangasRepo.Save();
-
-                _topicRepo.Update(obj);
-                _topicRepo.Save();
-                return RedirectToAction(nameof(Index));
-            }
-
-            return View(obj);
-        }
-
         public IActionResult Delete(int? id)
         {
             if (id == null || id == 0)
             {
                 return NotFound();
             }
-            var obj = _topicRepo.Find(id.GetValueOrDefault());
-            if (obj == null)
+            var Topic = _topicRepo.FirstOrDefault(u => u.Id == id, includePropreties: "Section");
+            if (Topic == null)
             {
                 return NotFound();
             }
 
-            return View(obj);
+            TopicDeleteDTO dleteVM = _mapper.Map<TopicDeleteDTO>(Topic);
+
+            return View(dleteVM);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult DeletePost(int? id)
         {
-            var obj = _topicRepo.Find(id.GetValueOrDefault());
+            var Topic = _topicRepo.Find(id.GetValueOrDefault());
             DateTime curentTime = DateTime.Now;
-            if (obj == null)
+            if (Topic == null)
             {
                 return NotFound();
             }
 
             TopicChanges topicChanges = new()
             {
-                TopicId = obj.Id,
+                TopicId = Topic.Id,
                 Field = WC.DeleteTime,
                 FromValue = null,
                 ToValue = curentTime.ToString(),
@@ -263,9 +185,9 @@ namespace Forum.Controllers
 
             _topicChangasRepo.Add(topicChanges);
 
-            _topicRepo.Delete(obj, curentTime);
+            _topicRepo.Delete(Topic, curentTime);
             _topicRepo.Save();
             return RedirectToAction(nameof(Index));
-        }*/
+        }
     }
 }
