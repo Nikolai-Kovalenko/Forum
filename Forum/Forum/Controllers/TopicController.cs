@@ -81,62 +81,15 @@ namespace Forum.Controllers
                 // Update
                 else
                 {
+                    var allTopic = _db.Topics.Where(t => t.Id == obj.Topic.Id).ToList();
+
                     Topic objFromDb = _topicRepo.FirstOrDefault(u => u.Id == obj.Topic.Id, isTracking: false);
 
                     if (objFromDb != null)
                     {
-                        if (objFromDb.Description != obj.Topic.Description
-                            || objFromDb.SectionId != obj.Topic.SectionId
-                            || objFromDb.Name != obj.Topic.Name)
-                        {
-                            DateTime curentTime = DateTime.Now;
+                        objFromDb.Update(obj.Topic.Name, obj.Topic.Description, obj.Topic.SectionId);
 
-                            if (objFromDb.Name != obj.Topic.Name)
-                            {
-                                TopicChanges topicChanges = new()
-                                {
-                                    TopicId = obj.Topic.Id,
-                                    Field = WC.Name,
-                                    FromValue = objFromDb.Name,
-                                    ToValue = obj.Topic.Name,
-                                    ChangeTime = curentTime
-                                };
-
-                                _topicChangasRepo.Add(topicChanges);
-                            }
-
-                            if (objFromDb.SectionId != obj.Topic.SectionId)
-                            {
-                                TopicChanges topicChanges = new()
-                                {
-                                    TopicId = obj.Topic.Id,
-                                    Field = WC.SectionId,
-                                    FromValue = objFromDb.SectionId.ToString(),
-                                    ToValue = obj.Topic.SectionId.ToString(),
-                                    ChangeTime = curentTime
-                                };
-
-                                _topicChangasRepo.Add(topicChanges);
-                            }
-
-                            if (objFromDb.Description != obj.Topic.Description)
-                            {
-                                TopicChanges topicChanges = new()
-                                {
-                                    TopicId = obj.Topic.Id,
-                                    Field = WC.Description,
-                                    FromValue = objFromDb.Description,
-                                    ToValue = obj.Topic.Description,
-                                    ChangeTime = curentTime
-                                };
-
-                                _topicChangasRepo.Add(topicChanges);
-                            }
-                            _topicChangasRepo.Save();
-
-                            _topicRepo.Update(obj.Topic, curentTime);
-                            _topicRepo.Save();
-                        }
+                        _topicRepo.Save();
 
                         return RedirectToAction(nameof(Index));
                     }
@@ -168,24 +121,16 @@ namespace Forum.Controllers
         public IActionResult DeletePost(int? id)
         {
             var Topic = _topicRepo.Find(id.GetValueOrDefault());
-            DateTime curentTime = DateTime.Now;
+            DateTime deliteTime = DateTime.Now;
+
             if (Topic == null)
             {
                 return NotFound();
             }
 
-            TopicChanges topicChanges = new()
-            {
-                TopicId = Topic.Id,
-                Field = WC.DeleteTime,
-                FromValue = null,
-                ToValue = curentTime.ToString(),
-                ChangeTime = curentTime
-            };
+            Topic.Delete(deliteTime);
 
-            _topicChangasRepo.Add(topicChanges);
-
-            _topicRepo.Delete(Topic, curentTime);
+            _topicRepo.Delete(Topic, deliteTime);
             _topicRepo.Save();
             return RedirectToAction(nameof(Index));
         }

@@ -18,7 +18,17 @@ namespace Forum.Models
         public string? ToValue { get; set; }
         public DateTime ChangeTime { get; set; }
 
+        private TopicChanges() { }
 
+        public TopicChanges(int topicId, string field, string? fromValue, string? toValue)
+        {
+            TopicId = topicId;
+            Field = field;
+            FromValue = fromValue;
+            ToValue = toValue;
+            ChangeTime = DateTime.UtcNow;
+            Topic = null;
+        }
 
     }
 }
