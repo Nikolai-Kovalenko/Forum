@@ -83,7 +83,7 @@ namespace Forum.Controllers
                 {
                     var allTopic = _db.Topics.Where(t => t.Id == obj.Topic.Id).ToList();
 
-                    Topic objFromDb = _topicRepo.FirstOrDefault(u => u.Id == obj.Topic.Id, isTracking: false);
+                    Topic objFromDb = _topicRepo.FirstOrDefault(u => u.Id == obj.Topic.Id);
 
                     if (objFromDb != null)
                     {
@@ -130,7 +130,7 @@ namespace Forum.Controllers
 
             Topic.Delete(deliteTime);
 
-            _topicRepo.Delete(Topic, deliteTime);
+            // _topicRepo.Delete(Topic, deliteTime);
             _topicRepo.Save();
             return RedirectToAction(nameof(Index));
         }

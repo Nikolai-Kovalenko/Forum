@@ -33,25 +33,28 @@ namespace Forum.Models
             int sectionId
             )
         {
+
+            DateTime changeTime = DateTime.Now;
+
             if (name != Name)
             {
-                AddChange(WC.Name, Name, name);
+                AddChange(WC.Name, Name, name, changeTime);
 
                 Name = name;
             }
 
             if (description != Description)
             {
-                AddChange(WC.Description, Description, description);
+                AddChange(WC.Description, Description, description, changeTime);
 
                 Description = description;
             }
 
             if (SectionId != sectionId)
             {
-                AddChange(WC.SectionId, SectionId.ToString(), sectionId.ToString());
+                AddChange(WC.SectionId, SectionId.ToString(), sectionId.ToString(), changeTime);
 
-                Description = description;
+                SectionId = sectionId;
             }
         }
 
@@ -62,13 +65,15 @@ namespace Forum.Models
                 new IndexOutOfRangeException("Record has already been deleted.");
             }
 
-            AddChange(WC.DeleteTime, null, deliteTime.ToString());
+            AddChange(WC.DeleteTime, null, deliteTime.ToString(), deliteTime);
+            DeleteTime = deliteTime;
         }
 
 
-        private void AddChange(string field, string? fromValue, string? toValue)
+        private void AddChange(string field, string? fromValue, string? toValue, DateTime changeTime)
         {
-            Changes.Add(new TopicChanges(Id, field, fromValue, toValue));
+            Changes.Add(new TopicChanges(Id, field, fromValue, toValue, changeTime));
+            LastChangeTime = changeTime;
         }
     }
 }

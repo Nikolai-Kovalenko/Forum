@@ -20,13 +20,13 @@ namespace Forum.Models
 
         private TopicChanges() { }
 
-        public TopicChanges(int topicId, string field, string? fromValue, string? toValue)
+        public TopicChanges(int topicId, string field, string? fromValue, string? toValue, DateTime changeTime)
         {
             TopicId = topicId;
             Field = field;
             FromValue = fromValue;
             ToValue = toValue;
-            ChangeTime = DateTime.UtcNow;
+            ChangeTime = changeTime;
             Topic = null;
         }
 
