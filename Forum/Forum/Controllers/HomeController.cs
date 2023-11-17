@@ -23,7 +23,7 @@ namespace Forum.Controllers
             HomeVM homeVM = new HomeVM()
             {
                 Topics = _db.Topics.Include(u => u.Section),
-                Sections = _db.Sections
+                Sections = _db.Sections.Where(u => u.DeleteTime == null)
             };
 
             return View(homeVM);
