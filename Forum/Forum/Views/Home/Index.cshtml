@@ -10,7 +10,24 @@
             </button>
         }
     </div>
+
     <br />
+
+    <table class="table table-bordered table-striped" style="width:100%">
+        <tread>
+            <tr>
+                <th style="width: 70%;">
+                    Title
+                </th>
+                <th style="width: 15%;">
+                    Create time
+                </th>
+                <th style="width: 15%;">
+                    Last Commment
+                </th>
+            </tr>
+    </table>
+
     <div class="row">
         @foreach (var prod in Model.Topics)
         {
@@ -34,8 +51,8 @@
                     $('.filter').show('1000');
                 }
                 else {
-                    $(".filter").not('.' + value).hide('3000');
-                    $('.filter').filter('.' + value).show('3000');
+                    $(".filter").not('.' + value).hide();
+                    $('.filter').filter('.' + value).show();
 
                 }
             });
