@@ -134,5 +134,41 @@ namespace Forum.Controllers
             _topicRepo.Save();
             return RedirectToAction(nameof(Index));
         }
+
+        public IActionResult ViewDeteils(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var Topic = _topicRepo.FirstOrDefault(u => u.Id == id, includePropreties: "Section");
+            if (Topic == null)
+            {
+                return NotFound();
+            }
+
+            TopicDeleteDTO dleteVM = _mapper.Map<TopicDeleteDTO>(Topic);
+
+            return View(dleteVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ViewDeteilsPost(int? id)
+        {
+            var Topic = _topicRepo.Find(id.GetValueOrDefault());
+            DateTime deliteTime = DateTime.Now;
+
+            if (Topic == null)
+            {
+                return NotFound();
+            }
+
+            Topic.Delete(deliteTime);
+
+            // _topicRepo.Delete(Topic, deliteTime);
+            _topicRepo.Save();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
