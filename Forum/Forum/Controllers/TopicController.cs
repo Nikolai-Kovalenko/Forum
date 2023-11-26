@@ -142,14 +142,14 @@ namespace Forum.Controllers
                 return NotFound();
             }
             var Topic = _topicRepo.FirstOrDefault(u => u.Id == id, includePropreties: "Section");
-            if (Topic == null)
+            if (Topic == null || Topic.DeleteTime != null)
             {
                 return NotFound();
             }
 
-            TopicDeleteDTO dleteVM = _mapper.Map<TopicDeleteDTO>(Topic);
+            TopicCommentVM topicCommentVM = new();
 
-            return View(dleteVM);
+            return View(topicCommentVM);
         }
 
         [HttpPost]

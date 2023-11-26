@@ -13,11 +13,16 @@ namespace Forum.Models
         [ForeignKey("TopicId")]
         public virtual Topic Topic { get; set; }
 
-        public Guid CreateUserId { get; set; }
+        public string CreateUserId { get; set; }
+
+        [ForeignKey("CreateUserId")]
+        public virtual AppUser AppUser { get; set; }
 
         public string Content { get; set; }
 
         public DateTime CreateTime { get; set; }
+
+        public DateTime? EditTime { get; set; } // Доступно только в течении 10 минут после написания комментария
 
         public DateTime? DeleteTime { get; set; }
     }

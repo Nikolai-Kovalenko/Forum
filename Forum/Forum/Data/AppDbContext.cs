@@ -16,5 +16,6 @@ namespace Forum.Data
         public DbSet<SectionChanges> SectionsChanges { get; set; }
         public DbSet<TopicChanges> TopicsChanges { get; set; }
         public DbSet<TopicComment> TopicComments { get; set; }
+        public DbSet<AppUser> AppUsers { get; set; }
     }
 }
