@@ -11,6 +11,7 @@ namespace Forum
         {
             CreateMap<Topic, TopicUpsertDTO>().ReverseMap();
             CreateMap<Topic, TopicDeleteDTO>().ReverseMap();
+            CreateMap<TopicComment, TopicCommentDTO>().ReverseMap();
         }
     }
 }

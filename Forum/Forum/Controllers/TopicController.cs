@@ -13,15 +13,18 @@ namespace Forum.Controllers
         public readonly AppDbContext _db;
         public readonly ITopicRepository _topicRepo;
         public readonly ITopicChangesRepository _topicChangasRepo;
+        public readonly ITopicCommentRepository _topicCommentRepo;
         public IMapper _mapper { get; set; }
 
 
         public TopicController(AppDbContext db, ITopicRepository topicRepo,
-            ITopicChangesRepository topicChangasRepo, IMapper mapper)
+            ITopicChangesRepository topicChangasRepo,
+            ITopicCommentRepository topicCommentRepo, IMapper mapper)
         {
             _db = db;
             _topicRepo = topicRepo;
             _topicChangasRepo = topicChangasRepo;
+            _topicCommentRepo = topicCommentRepo;
             _mapper = mapper;
         }
 
@@ -130,7 +133,6 @@ namespace Forum.Controllers
 
             Topic.Delete(deliteTime);
 
-            // _topicRepo.Delete(Topic, deliteTime);
             _topicRepo.Save();
             return RedirectToAction(nameof(Index));
         }
@@ -147,9 +149,12 @@ namespace Forum.Controllers
                 return NotFound();
             }
 
-            TopicCommentVM topicCommentVM = new();
+            IEnumerable<TopicComment> topicCommentVM = _topicCommentRepo.GetAll(
+                u => u.Id == id && u.DeleteTime != null);
 
-            return View(topicCommentVM);
+            IEnumerable<TopicCommentDTO> topicCommentDto = _mapper.Map<IEnumerable<TopicCommentDTO>>(topicCommentVM);
+
+            return View(topicCommentDto);
         }
 
         [HttpPost]
