@@ -22,7 +22,6 @@
   <ItemGroup>
     <Folder Include="Models\Dto\UserDTO\" />
     <Folder Include="Models\Dto\SectionDTO\" />
-    <Folder Include="Models\Dto\TopicDTO\" />
   </ItemGroup>
 
 </Project>

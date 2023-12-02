@@ -143,18 +143,24 @@ namespace Forum.Controllers
             {
                 return NotFound();
             }
-            var Topic = _topicRepo.FirstOrDefault(u => u.Id == id, includePropreties: "Section");
+            var Topic = _topicRepo.FirstOrDefault(u => u.Id == id, includePropreties: WC.SectionType);
             if (Topic == null || Topic.DeleteTime != null)
             {
                 return NotFound();
             }
 
-            IEnumerable<TopicComment> topicCommentVM = _topicCommentRepo.GetAll(
+            IEnumerable<TopicComment> topicComment = _topicCommentRepo.GetAll(
                 u => u.Id == id && u.DeleteTime != null);
 
-            IEnumerable<TopicCommentDTO> topicCommentDto = _mapper.Map<IEnumerable<TopicCommentDTO>>(topicCommentVM);
+            IEnumerable<TopicCommentDTO> topicCommentDto = _mapper.Map<IEnumerable<TopicCommentDTO>>(topicComment);
 
-            return View(topicCommentDto);
+            TopicCommentVM topicCommentVM = new()
+            {
+                topicCommentDTO = topicCommentDto,
+                topicDTO = _mapper.Map<TopicDTO>(Topic)
+            };
+
+            return View(topicCommentVM);
         }
 
         [HttpPost]

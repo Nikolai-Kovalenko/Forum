@@ -22,6 +22,7 @@ builder.Services.AddScoped<ISectionRepository, SectionRepository>();
 builder.Services.AddScoped<ISectionChangesRepository, SectionChangesRepository>();
 builder.Services.AddScoped<ITopicRepository, TopicRepository>();
 builder.Services.AddScoped<ITopicChangesRepository, TopicChangesRepository>();
+builder.Services.AddScoped<ITopicCommentRepository, TopicCommentRepository>();
 
 builder.Services.AddAutoMapper(typeof(MappingConfig));
 
