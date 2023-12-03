@@ -263,3 +263,4 @@ F:\Project\Forum\Forum\Forum\bin\Debug\net7.0\ru\Microsoft.CodeAnalysis.Workspac
 F:\Project\Forum\Forum\Forum\bin\Debug\net7.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 F:\Project\Forum\Forum\Forum\bin\Debug\net7.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 F:\Project\Forum\Forum\Forum\bin\Debug\net7.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+F:\Project\Forum\Forum\Forum\obj\Debug\net7.0\scopedcss\Views\Shared\_TopicCommentCard.cshtml.rz.scp.css

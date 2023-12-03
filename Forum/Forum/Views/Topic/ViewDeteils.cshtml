@@ -1,1 +1,41 @@
 ﻿@model Forum.Models.ViewModels.TopicCommentVM
+
+<div class="container p-2 border">
+    <div class="row">
+        <div class="col-10">
+            <h1>@Model.topicDTO.Name</h1>
+        </div>
+        <div class="col-2 p-2">
+            <span class="badge border w-100 text-dark" style="background-color:lavenderblush">@Model.topicDTO.Section.Name</span>
+        </div>
+        <div class="col-12">
+            @Model.topicDTO.Description
+        </div>
+    </div>
+</div>
+
+<br/>
+ 
+<div class="container p-2 border">
+    <div class="row">
+        <div class="col-10 p-2">
+            <input asp-for="@Forum.Models.Dto.TopicCommentDTO.Content" class="form-control" placeholder="Присоединиться к обсуждению..." />
+        </div>
+        <div class="col-2 p-2">
+            <a asp-controller="Topic" asp-action="AddComment" class="btn btn-success"><i class="bi bi-plus-square"></i> Add commetn</a>
+        </div>
+    </div>
+</div>
+
+<div class="container p-2 border">
+    <div>
+        @if(Model.topicCommentDTO != null)
+        {
+            @foreach (var comments in Model.topicCommentDTO)
+            {
+                <partial name="_TopicCommentCard" model="comments" />
+            }
+        }
+        <span>Комментариев пока нет...</span>
+    </div>
+</div>
