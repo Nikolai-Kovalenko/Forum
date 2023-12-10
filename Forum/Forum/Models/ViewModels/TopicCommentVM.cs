@@ -6,7 +6,8 @@ namespace Forum.Models.ViewModels
 {
     public class TopicCommentVM
     {
-        public IEnumerable<TopicCommentDTO> topicCommentDTO { get; set; }
+        public IEnumerable<TopicCommentDTO> listTopicCommentDTO { get; set; }
+        public TopicCommentDTO topicCommentDTO { get; set; }
         public TopicDTO topicDTO { get; set; }
 
         // UserDTO // хз зачем...

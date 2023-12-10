@@ -8,5 +8,7 @@
         public const string SectionId = "SectionId";
 
         public const string SectionType = "Section";
+
+        public const string ImagePath = @"\images\userPhoto\";
     }
 }

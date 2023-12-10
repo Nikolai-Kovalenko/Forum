@@ -156,18 +156,20 @@ namespace Forum.Controllers
 
             TopicCommentVM topicCommentVM = new()
             {
-                topicCommentDTO = topicCommentDto,
+                listTopicCommentDTO = topicCommentDto,
+                topicCommentDTO = new TopicCommentDTO()
+                {
+                },
                 topicDTO = _mapper.Map<TopicDTO>(Topic)
             };
 
             return View(topicCommentVM);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult ViewDeteilsPost(int? id)
+
+        public IActionResult AddComment(TopicCommentDTO? comment)
         {
-            var Topic = _topicRepo.Find(id.GetValueOrDefault());
+/*            var Topic = _topicRepo.Find(id.GetValueOrDefault());
             DateTime deliteTime = DateTime.Now;
 
             if (Topic == null)
@@ -178,7 +180,7 @@ namespace Forum.Controllers
             Topic.Delete(deliteTime);
 
             // _topicRepo.Delete(Topic, deliteTime);
-            _topicRepo.Save();
+            _topicRepo.Save();*/
             return RedirectToAction(nameof(Index));
         }
     }

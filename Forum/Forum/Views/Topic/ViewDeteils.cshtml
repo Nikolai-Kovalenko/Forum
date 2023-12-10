@@ -19,7 +19,7 @@
 <div class="container p-2 border">
     <div class="row">
         <div class="col-10 p-2">
-            <input asp-for="@Forum.Models.Dto.TopicCommentDTO.Content" class="form-control" placeholder="Присоединиться к обсуждению..." />
+            <input name="Content" class="form-control" placeholder="Присоединиться к обсуждению..." />
         </div>
         <div class="col-2 p-2">
             <a asp-controller="Topic" asp-action="AddComment" class="btn btn-success"><i class="bi bi-plus-square"></i> Add commetn</a>
@@ -31,7 +31,7 @@
     <div>
         @if(Model.topicCommentDTO != null)
         {
-            @foreach (var comments in Model.topicCommentDTO)
+            @foreach (var comments in Model.listTopicCommentDTO)
             {
                 <partial name="_TopicCommentCard" model="comments" />
             }

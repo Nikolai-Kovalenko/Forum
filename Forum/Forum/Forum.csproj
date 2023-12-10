@@ -22,6 +22,7 @@
   <ItemGroup>
     <Folder Include="Models\Dto\UserDTO\" />
     <Folder Include="Models\Dto\SectionDTO\" />
+    <Folder Include="wwwroot\images\userPhoto\" />
   </ItemGroup>
 
 </Project>
