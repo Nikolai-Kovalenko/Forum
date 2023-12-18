@@ -10,5 +10,8 @@
         public const string SectionType = "Section";
 
         public const string ImagePath = @"\images\userPhoto\";
+
+        public const string AdminRole = "Admin";
+        public const string CustomerRole = "Customer";
     }
 }

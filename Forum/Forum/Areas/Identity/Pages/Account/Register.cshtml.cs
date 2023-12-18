@@ -31,6 +31,7 @@ namespace Forum.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
@@ -38,7 +39,8 @@ namespace Forum.Areas.Identity.Pages.Account
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            IWebHostEnvironment webHostEnvironment)
+            IWebHostEnvironment webHostEnvironment,
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -47,6 +49,7 @@ namespace Forum.Areas.Identity.Pages.Account
             _logger = logger;
             _emailSender = emailSender;
             _webHostEnvironment = webHostEnvironment;
+            _roleManager = roleManager;
         }
 
         /// <summary>
@@ -119,6 +122,12 @@ namespace Forum.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+            if (!await _roleManager.RoleExistsAsync(WC.AdminRole))
+            {
+                await _roleManager.CreateAsync(new IdentityRole(WC.AdminRole));
+                await _roleManager.CreateAsync(new IdentityRole(WC.CustomerRole));
+            }
+
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
@@ -147,7 +156,9 @@ namespace Forum.Areas.Identity.Pages.Account
                     Email = Input.Email,
                     Login = Input.Login,
                     PathToPhoto = fileName + extension,
-                    Sex = Input.Sex
+                    Sex = Input.Sex,
+                    RegistrationTime = DateTime.Now,
+                    IsActive = true
                 };
 
                 await _userStore.SetUserNameAsync(user, Input.Login, CancellationToken.None);
@@ -156,6 +167,15 @@ namespace Forum.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
+                    if (User.IsInRole(WC.AdminRole))
+                    {
+                        await _userManager.AddToRoleAsync(user, WC.AdminRole);
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, WC.CustomerRole);
+                    }
+
                     _logger.LogInformation("User created a new account with password and photo.");
 
                     var userId = await _userManager.GetUserIdAsync(user);

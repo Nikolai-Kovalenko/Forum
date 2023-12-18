@@ -13,6 +13,14 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "F:\\Project\\Forum\\Forum\\Forum\\wwwroot\\images\\userPhoto\\29106b9d-0430-441e-86ca-bfd5fafd8839.png",
+      "PackagePath": "staticwebassets\\images\\userPhoto\\29106b9d-0430-441e-86ca-bfd5fafd8839.png"
+    },
+    {
+      "Id": "F:\\Project\\Forum\\Forum\\Forum\\wwwroot\\images\\userPhoto\\5e50d1db-78d5-474d-94f3-efc56c151652.jpg",
+      "PackagePath": "staticwebassets\\images\\userPhoto\\5e50d1db-78d5-474d-94f3-efc56c151652.jpg"
+    },
+    {
       "Id": "F:\\Project\\Forum\\Forum\\Forum\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

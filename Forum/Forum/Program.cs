@@ -1,5 +1,6 @@
 using Forum;
 using Forum.Data;
+using Forum.Models;
 using Forum.Repository;
 using Forum.Repository.IRepository;
 using Microsoft.AspNetCore.Identity;
@@ -7,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddRazorPages();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -15,7 +17,17 @@ builder.Services.AddDbContext<AppDbContext>(options => {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultSQLConnection"));
 });
 
+/*builder.Services.AddIdentity<AppUser, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
+
+builder.Services.AddIdentity<AppUser, IdentityRole>()
+        .AddRoleManager<RoleManager<IdentityRole>>()
+        .AddEntityFrameworkStores<AppDbContext>()
+        .AddDefaultTokenProviders();*/
+
 builder.Services.AddDefaultIdentity<IdentityUser>()
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>();
 
 builder.Services.AddScoped<ISectionRepository, SectionRepository>();
@@ -25,6 +37,9 @@ builder.Services.AddScoped<ITopicChangesRepository, TopicChangesRepository>();
 builder.Services.AddScoped<ITopicCommentRepository, TopicCommentRepository>();
 
 builder.Services.AddAutoMapper(typeof(MappingConfig));
+
+builder.Services.AddAuthorization();
+
 
 var app = builder.Build();
 
