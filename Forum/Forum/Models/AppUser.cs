@@ -4,7 +4,6 @@ namespace Forum.Models
 {
     public class AppUser : IdentityUser
     {
-        public string Login { get; set; }
         public string? PathToPhoto { get; set; }
         public bool IsActive { get; set; } // Активный или заблокированый
         public string Sex { get; set; }

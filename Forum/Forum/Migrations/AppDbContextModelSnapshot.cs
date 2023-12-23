@@ -407,10 +407,6 @@ namespace Forum.Migrations
                     b.Property<bool>("IsTrusted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Login")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("PathToPhoto")
                         .HasColumnType("nvarchar(max)");
 

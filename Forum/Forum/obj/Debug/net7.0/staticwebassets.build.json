@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "2GhBiU48Hk4QtZO1GmvsYcqCsi1kEMQukQkDjwCDFGo=",
+  "Hash": "zp0/ECyqq9zE3DXn2dbpyx16xMDBs8ixeskGxOzgKcA=",
   "Source": "Forum",
   "BasePath": "_content/Forum",
   "Mode": "Default",
@@ -1103,6 +1103,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "F:\\Project\\Forum\\Forum\\Forum\\wwwroot\\images\\userPhoto\\10f317e3-8eb7-46bf-91db-31c40500969f.png",
+      "SourceId": "Forum",
+      "SourceType": "Discovered",
+      "ContentRoot": "F:\\Project\\Forum\\Forum\\Forum\\wwwroot\\",
+      "BasePath": "_content/Forum",
+      "RelativePath": "images/userPhoto/10f317e3-8eb7-46bf-91db-31c40500969f.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\userPhoto\\10f317e3-8eb7-46bf-91db-31c40500969f.png"
+    },
+    {
+      "Identity": "F:\\Project\\Forum\\Forum\\Forum\\wwwroot\\images\\userPhoto\\23c46c11-3016-4937-8f7d-52ce346e4260.png",
+      "SourceId": "Forum",
+      "SourceType": "Discovered",
+      "ContentRoot": "F:\\Project\\Forum\\Forum\\Forum\\wwwroot\\",
+      "BasePath": "_content/Forum",
+      "RelativePath": "images/userPhoto/23c46c11-3016-4937-8f7d-52ce346e4260.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\userPhoto\\23c46c11-3016-4937-8f7d-52ce346e4260.png"
     },
     {
       "Identity": "F:\\Project\\Forum\\Forum\\Forum\\wwwroot\\images\\userPhoto\\29106b9d-0430-441e-86ca-bfd5fafd8839.png",

@@ -79,8 +79,8 @@ namespace Forum.Areas.Identity.Pages.Account
         {
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 3)]
-            [Display(Name = "Login")]
-            public string Login { get; set; }
+            [Display(Name = "UserName")]
+            public string UserName { get; set; }
 
             [Required]
             [Display(Name = "Photo")]
@@ -154,14 +154,14 @@ namespace Forum.Areas.Identity.Pages.Account
                 var user = new AppUser
                 {
                     Email = Input.Email,
-                    Login = Input.Login,
+                    UserName = Input.UserName,
                     PathToPhoto = fileName + extension,
                     Sex = Input.Sex,
                     RegistrationTime = DateTime.Now,
                     IsActive = true
                 };
 
-                await _userStore.SetUserNameAsync(user, Input.Login, CancellationToken.None);
+                await _userStore.SetUserNameAsync(user, Input.UserName, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
