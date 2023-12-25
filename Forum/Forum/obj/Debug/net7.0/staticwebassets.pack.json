@@ -29,6 +29,10 @@
       "PackagePath": "staticwebassets\\images\\userPhoto\\5e50d1db-78d5-474d-94f3-efc56c151652.jpg"
     },
     {
+      "Id": "F:\\Project\\Forum\\Forum\\Forum\\wwwroot\\images\\userPhoto\\9ab070eb-f94c-44ce-b456-ee9b974f10f9.png",
+      "PackagePath": "staticwebassets\\images\\userPhoto\\9ab070eb-f94c-44ce-b456-ee9b974f10f9.png"
+    },
+    {
       "Id": "F:\\Project\\Forum\\Forum\\Forum\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

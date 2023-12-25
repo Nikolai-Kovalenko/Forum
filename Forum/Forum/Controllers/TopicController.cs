@@ -4,10 +4,13 @@ using Forum.Models;
 using Forum.Models.Dto;
 using Forum.Models.ViewModels;
 using Forum.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace Forum.Controllers
 {
+    [Authorize(Roles = WC.AdminRole)]
     public class TopicController : Controller
     {
         public readonly AppDbContext _db;
@@ -137,6 +140,7 @@ namespace Forum.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [AllowAnonymous]
         public IActionResult ViewDeteils(int? id)
         {
             if (id == null || id == 0)
@@ -166,7 +170,7 @@ namespace Forum.Controllers
             return View(topicCommentVM);
         }
 
-
+        [Authorize]
         public IActionResult AddComment(TopicCommentDTO? comment)
         {
 /*            var Topic = _topicRepo.Find(id.GetValueOrDefault());

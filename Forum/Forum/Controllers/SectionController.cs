@@ -1,10 +1,12 @@
 ﻿using Forum.Data;
 using Forum.Models;
 using Forum.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forum.Controllers
 {
+    [Authorize(Roles = WC.AdminRole)]
     public class SectionController : Controller
     {
         public readonly AppDbContext _db;

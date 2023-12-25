@@ -22,7 +22,18 @@
             <input name="Content" class="form-control" placeholder="Присоединиться к обсуждению..." />
         </div>
         <div class="col-2 p-2">
-            <a asp-controller="Topic" asp-action="AddComment" class="btn btn-success"><i class="bi bi-plus-square"></i> Add commetn</a>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a asp-controller="Topic" asp-action="AddComment" class="btn btn-success">
+                    <i class="bi bi-plus-square"></i> Add commetn
+                </a>
+            }
+            else
+            {
+                <button class="disabled-button" disabled title="Log in to your account to add a comment">
+                    <i class="bi bi-plus-square"></i> Add commetn
+                </button>
+            }
         </div>
     </div>
 </div>

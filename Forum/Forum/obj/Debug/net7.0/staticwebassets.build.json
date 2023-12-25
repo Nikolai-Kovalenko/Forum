@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "zp0/ECyqq9zE3DXn2dbpyx16xMDBs8ixeskGxOzgKcA=",
+  "Hash": "9do7FnKvrh6h8edfPub6hB1dagqivNctfc4F+WOoEEA=",
   "Source": "Forum",
   "BasePath": "_content/Forum",
   "Mode": "Default",
@@ -1171,6 +1171,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\userPhoto\\5e50d1db-78d5-474d-94f3-efc56c151652.jpg"
+    },
+    {
+      "Identity": "F:\\Project\\Forum\\Forum\\Forum\\wwwroot\\images\\userPhoto\\9ab070eb-f94c-44ce-b456-ee9b974f10f9.png",
+      "SourceId": "Forum",
+      "SourceType": "Discovered",
+      "ContentRoot": "F:\\Project\\Forum\\Forum\\Forum\\wwwroot\\",
+      "BasePath": "_content/Forum",
+      "RelativePath": "images/userPhoto/9ab070eb-f94c-44ce-b456-ee9b974f10f9.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\userPhoto\\9ab070eb-f94c-44ce-b456-ee9b974f10f9.png"
     },
     {
       "Identity": "F:\\Project\\Forum\\Forum\\Forum\\wwwroot\\js\\site.js",
