@@ -13,7 +13,7 @@ namespace Forum.Models
         [ForeignKey("TopicId")]
         public virtual Topic Topic { get; set; }
 
-        public string CreateUserId { get; set; }
+        public string? CreateUserId { get; set; }
 
         [ForeignKey("CreateUserId")]
         public virtual AppUser AppUser { get; set; }

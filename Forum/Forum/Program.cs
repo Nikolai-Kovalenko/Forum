@@ -17,24 +17,37 @@ builder.Services.AddDbContext<AppDbContext>(options => {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultSQLConnection"));
 });
 
+
+
+
 /*builder.Services.AddIdentity<AppUser, IdentityRole>()
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
-
+*/
+/*
 builder.Services.AddIdentity<AppUser, IdentityRole>()
         .AddRoleManager<RoleManager<IdentityRole>>()
         .AddEntityFrameworkStores<AppDbContext>()
-        .AddDefaultTokenProviders();*/
+        .AddDefaultTokenProviders();
+*/
+
 
 builder.Services.AddDefaultIdentity<IdentityUser>()
     .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<AppDbContext>();
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
+
+
 
 builder.Services.AddScoped<ISectionRepository, SectionRepository>();
 builder.Services.AddScoped<ISectionChangesRepository, SectionChangesRepository>();
 builder.Services.AddScoped<ITopicRepository, TopicRepository>();
 builder.Services.AddScoped<ITopicChangesRepository, TopicChangesRepository>();
 builder.Services.AddScoped<ITopicCommentRepository, TopicCommentRepository>();
+
+/*builder.Services.AddScoped<UserManager<AppUser>>(); 
+builder.Services.AddScoped<SignInManager<AppUser>>();*/
 
 builder.Services.AddAutoMapper(typeof(MappingConfig));
 

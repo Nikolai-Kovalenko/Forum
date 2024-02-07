@@ -18,7 +18,10 @@ namespace Forum.Models
         public string? ToValue { get; set; }
         public DateTime ChangeTime { get; set; }
 
+        public string? ChangeUserId { get; set; }
 
+        [ForeignKey("ChangeUserId")]
+        public virtual AppUser AppUser { get; set; }
 
     }
 }

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "lzKWACbiKZBvY5Fbo1iX4HqNacnDDxk5ahlE/y0++B0ub7T+CVX7zDgtDLgZ8u4q1AnDU9FsC/8H5juUBZCMgA==",
+  "dgSpecHash": "2x31fVKTV/L6XWIft866tdpyMjvMLGWssRksWaD0CvbugUkmstwk0USa3xu96DS7d8zy0PTJj3ato9HQgpQTKA==",
   "success": true,
   "projectFilePath": "F:\\Project\\Forum\\Forum\\Forum\\Forum.csproj",
   "expectedPackageFiles": [
@@ -82,9 +82,9 @@
     "C:\\Users\\nik\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\5.1.0\\microsoft.data.sqlclient.sni.runtime.5.1.0.nupkg.sha512",
     "C:\\Users\\nik\\.nuget\\packages\\microsoft.diasymreader\\1.4.0\\microsoft.diasymreader.1.4.0.nupkg.sha512",
     "C:\\Users\\nik\\.nuget\\packages\\microsoft.dotnet.scaffolding.shared\\7.0.11\\microsoft.dotnet.scaffolding.shared.7.0.11.nupkg.sha512",
-    "C:\\Users\\nik\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.13\\microsoft.entityframeworkcore.7.0.13.nupkg.sha512",
-    "C:\\Users\\nik\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.13\\microsoft.entityframeworkcore.abstractions.7.0.13.nupkg.sha512",
-    "C:\\Users\\nik\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\7.0.13\\microsoft.entityframeworkcore.analyzers.7.0.13.nupkg.sha512",
+    "C:\\Users\\nik\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.15\\microsoft.entityframeworkcore.7.0.15.nupkg.sha512",
+    "C:\\Users\\nik\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.15\\microsoft.entityframeworkcore.abstractions.7.0.15.nupkg.sha512",
+    "C:\\Users\\nik\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\7.0.15\\microsoft.entityframeworkcore.analyzers.7.0.15.nupkg.sha512",
     "C:\\Users\\nik\\.nuget\\packages\\microsoft.entityframeworkcore.design\\7.0.13\\microsoft.entityframeworkcore.design.7.0.13.nupkg.sha512",
     "C:\\Users\\nik\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\7.0.13\\microsoft.entityframeworkcore.relational.7.0.13.nupkg.sha512",
     "C:\\Users\\nik\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\7.0.13\\microsoft.entityframeworkcore.sqlserver.7.0.13.nupkg.sha512",

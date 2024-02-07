@@ -18,9 +18,15 @@ namespace Forum.Models
         public string? ToValue { get; set; }
         public DateTime ChangeTime { get; set; }
 
+        public string ChangeUserId { get; set; }
+
+        [ForeignKey("ChangeUserId")]
+        public virtual AppUser AppUser { get; set; }
+
         private TopicChanges() { }
 
-        public TopicChanges(int topicId, string field, string? fromValue, string? toValue, DateTime changeTime)
+        public TopicChanges(int topicId, string field, string? fromValue, string? toValue, 
+            DateTime changeTime, string changeUserId)
         {
             TopicId = topicId;
             Field = field;
@@ -28,6 +34,7 @@ namespace Forum.Models
             ToValue = toValue;
             ChangeTime = changeTime;
             Topic = null;
+            ChangeUserId = changeUserId;
         }
 
     }

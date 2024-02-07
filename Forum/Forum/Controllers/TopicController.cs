@@ -5,8 +5,10 @@ using Forum.Models.Dto;
 using Forum.Models.ViewModels;
 using Forum.Repository.IRepository;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
+using System.Security.Claims;
 
 namespace Forum.Controllers
 {
@@ -17,18 +19,21 @@ namespace Forum.Controllers
         public readonly ITopicRepository _topicRepo;
         public readonly ITopicChangesRepository _topicChangasRepo;
         public readonly ITopicCommentRepository _topicCommentRepo;
+        private readonly SignInManager<IdentityUser> _signInManager;
+
         public IMapper _mapper { get; set; }
 
 
         public TopicController(AppDbContext db, ITopicRepository topicRepo,
-            ITopicChangesRepository topicChangasRepo,
-            ITopicCommentRepository topicCommentRepo, IMapper mapper)
+            ITopicChangesRepository topicChangasRepo, ITopicCommentRepository topicCommentRepo,
+            IMapper mapper, SignInManager<IdentityUser> signInManager)
         {
             _db = db;
             _topicRepo = topicRepo;
             _topicChangasRepo = topicChangasRepo;
             _topicCommentRepo = topicCommentRepo;
             _mapper = mapper;
+            _signInManager = signInManager;
         }
 
         public IActionResult Index()
@@ -44,7 +49,7 @@ namespace Forum.Controllers
                 TopicUpsertVM topicUpsertVM = new()
                 {
                     Topic = new TopicUpsertDTO(),
-                    SectionSelectList = _topicRepo.GetAllDropdownList(WC.SectionType)
+                    SectionSelectList = _topicRepo.GetAllDropdownList(WC.SectionType),
                 };
 
                 return View(topicUpsertVM);
@@ -71,14 +76,18 @@ namespace Forum.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Upsert(TopicUpsertVM obj)
-        {
+         {
             if (ModelState.IsValid)
             {
+                var claimsIdentity = (ClaimsIdentity)User.Identity;
+                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
                 // Create
                 if (obj.Topic.Id == 0)
                 {
                     Topic topic = _mapper.Map<Topic>(obj.Topic);
                     topic.CreateTime = DateTime.Now;
+                    topic.CreateUserId = claim.Value;
 
                     _topicRepo.Add(topic);
                     _topicRepo.Save();
@@ -93,7 +102,7 @@ namespace Forum.Controllers
 
                     if (objFromDb != null)
                     {
-                        objFromDb.Update(obj.Topic.Name, obj.Topic.Description, obj.Topic.SectionId);
+                        objFromDb.Update(obj.Topic.Name, obj.Topic.Description, obj.Topic.SectionId, claim.Value);
 
                         _topicRepo.Save();
 
@@ -134,7 +143,10 @@ namespace Forum.Controllers
                 return NotFound();
             }
 
-            Topic.Delete(deliteTime);
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+            Topic.Delete(deliteTime, claim.Value);
 
             _topicRepo.Save();
             return RedirectToAction(nameof(Index));
@@ -185,7 +197,7 @@ namespace Forum.Controllers
 
             // _topicRepo.Delete(Topic, deliteTime);
             _topicRepo.Save();*/
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(ViewDeteils));
         }
     }
 }

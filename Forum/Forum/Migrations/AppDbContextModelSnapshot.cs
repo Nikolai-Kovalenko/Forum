@@ -17,7 +17,7 @@ namespace Forum.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.13")
+                .HasAnnotation("ProductVersion", "7.0.15")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -32,6 +32,9 @@ namespace Forum.Migrations
 
                     b.Property<DateTime>("CreateTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("CreateUserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("DeleteTime")
                         .HasColumnType("datetime2");
@@ -48,6 +51,8 @@ namespace Forum.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CreateUserId");
+
                     b.ToTable("Sections");
                 });
 
@@ -61,6 +66,9 @@ namespace Forum.Migrations
 
                     b.Property<DateTime>("ChangeTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("ChangeUserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Field")
                         .IsRequired()
@@ -76,6 +84,8 @@ namespace Forum.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ChangeUserId");
 
                     b.HasIndex("SectionId");
 
@@ -93,6 +103,9 @@ namespace Forum.Migrations
                     b.Property<DateTime>("CreateTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("CreateUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<DateTime?>("DeleteTime")
                         .HasColumnType("datetime2");
 
@@ -111,6 +124,8 @@ namespace Forum.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CreateUserId");
+
                     b.HasIndex("SectionId");
 
                     b.ToTable("Topics");
@@ -127,6 +142,10 @@ namespace Forum.Migrations
                     b.Property<DateTime>("ChangeTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("ChangeUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Field")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -141,6 +160,8 @@ namespace Forum.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ChangeUserId");
 
                     b.HasIndex("TopicId");
 
@@ -163,7 +184,6 @@ namespace Forum.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreateUserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("DeleteTime")
@@ -420,35 +440,64 @@ namespace Forum.Migrations
                     b.HasDiscriminator().HasValue("AppUser");
                 });
 
+            modelBuilder.Entity("Forum.Models.Section", b =>
+                {
+                    b.HasOne("Forum.Models.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("CreateUserId");
+
+                    b.Navigation("AppUser");
+                });
+
             modelBuilder.Entity("Forum.Models.SectionChanges", b =>
                 {
+                    b.HasOne("Forum.Models.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("ChangeUserId");
+
                     b.HasOne("Forum.Models.Section", "Section")
                         .WithMany()
                         .HasForeignKey("SectionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("AppUser");
 
                     b.Navigation("Section");
                 });
 
             modelBuilder.Entity("Forum.Models.Topic", b =>
                 {
+                    b.HasOne("Forum.Models.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("CreateUserId");
+
                     b.HasOne("Forum.Models.Section", "Section")
                         .WithMany()
                         .HasForeignKey("SectionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("AppUser");
+
                     b.Navigation("Section");
                 });
 
             modelBuilder.Entity("Forum.Models.TopicChanges", b =>
                 {
+                    b.HasOne("Forum.Models.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("ChangeUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Forum.Models.Topic", "Topic")
                         .WithMany("Changes")
                         .HasForeignKey("TopicId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("AppUser");
 
                     b.Navigation("Topic");
                 });
@@ -457,9 +506,7 @@ namespace Forum.Migrations
                 {
                     b.HasOne("Forum.Models.AppUser", "AppUser")
                         .WithMany()
-                        .HasForeignKey("CreateUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CreateUserId");
 
                     b.HasOne("Forum.Models.Topic", "Topic")
                         .WithMany()
